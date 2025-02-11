@@ -5,8 +5,15 @@ use std::{fs, io};
 //unixdate-xxxxxxxxxxxx-(filetype)
 
 fn main() -> std::io::Result<()> {
+    let mut input = String::new();
+    println!("enter directory name:");
+    io::stdin()
+        .read_line(&mut input)
+        .expect("error: unable to read user input");
+    println!("directory name is: {}", input);
+    let dir_name = input.trim();
     loop {
-        let dirs = fs::read_dir("./testdir").unwrap();
+        let dirs = fs::read_dir(dir_name).expect("error: unable to read directory");
         for dir in dirs {
             let file_path = dir.unwrap().path();
             let file = file_path.display().to_string();
